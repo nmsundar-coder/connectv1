@@ -1,0 +1,122 @@
+export const LOGIN = 'LOGIN'
+export const CLEAR_DATA = 'CLEAR_DATA'
+export const REGISTER = 'REGISTER'
+export const PRE_REGISTER = 'PRE_REGISTER';
+export const CALLBACK = 'CALLBACK'
+
+export const FETCH_BOOKLETS = 'fetch_booklets'
+export const FETCH_BOOKLETS_SUCCESS = 'fetch_booklets_success'
+export const FETCH_BOOKLETS_FAIL = 'fetch_booklets_fail'
+
+export const FETCH_USER_BOOKLETS = 'booklets/fetch_user_booklets'
+export const FETCH_USER_BOOKLETS_SUCCESS = 'booklets/fetch_user_booklets_success'
+export const FETCH_USER_BOOKLETS_FAIL = 'booklets/fetch_user_booklets_fail'
+export const SEEN_ONBOARDING = 'SEEN_ONBOARDING'
+
+export const FETCH_BOOKLET = 'fetch_booklet'
+export const FETCH_BOOKLET_SUCCESS = 'fetch_booklet_success'
+export const FETCH_BOOKLET_FAIL = 'fetch_booklet_fail'
+
+export const SET_CURRENT_BOOKLET = 'SET_CURRENT_BOOKLET'
+export const SET_CURRENT_BOOKLET_FAIL = 'SET_CURRENT_BOOKLET_FAIL'
+export const SET_CURRENT_BOOKLET_SUCCESS = 'SET_CURRENT_BOOKLET_SUCCESS'
+
+export const UPDATE_EMAIL = 'user/update_email'
+export const EMAIL_SIGNUP = 'user/email_signup'
+export const EMAIL_SIGNUP_SUCCESS = 'user/email_signup_success'
+export const EMAIL_SIGNUP_FAIL = 'user/email_signup_fail'
+
+export const UPDATE_PHONE_NUMBER = 'UPDATE_PHONE_NUMBER'
+export const UPDATE_PHONE_NUMBER_SUCCESS = 'UPDATE_PHONE_NUMBER_SUCCESS'
+export const UPDATE_PHONE_NUMBER_FAIL = 'UPDATE_PHONE_NUMBER_FAIL'
+
+export const SELECT_ARTICLE = 'SELECT_ARTICLE'
+export const SELECT_ARTICLE_SUCCESS = 'SELECT_ARTICLE_SUCCESS'
+export const SELECT_ARTICLE_FAIL = 'SELECT_ARTICLE_FAIL'
+
+export const FETCH_ARTICLES = 'news/fetch_articles'
+export const FETCH_ARTICLES_SUCCESS = 'news/fetch_articles_success'
+export const FETCH_ARTICLES_FAIL = 'news/fetch_articles_fail'
+
+export const FETCH_NEXT_ARTICLE_PAGE = 'news/fetch_next_article_page'
+export const FETCH_NEXT_ARTICLE_PAGE_SUCCESS = 'news/fetch_next_article_page_success'
+export const FETCH_NEXT_ARTICLE_PAGE_FAIL = 'news/fetch_next_article_page_fail'
+
+export const SELECT_GAME = 'SELECT_GAME'
+export const SELECT_GAME_SUCCESS = 'SELECT_GAME_SUCCESS'
+export const SELECT_GAME_FAIL = 'SELECT_GAME_FAIL'
+
+export const SELECT_PRE_GAME_STATS = 'SELECT_PRE_GAME_STATS'
+export const SELECT_PRE_GAME_STATS_SUCCESS = 'SELECT_PRE_GAME_STATS_SUCCESS'
+export const SELECT_PRE_GAME_STATS_FAIL = 'SELECT_PRE_GAME_STATS_FAIL'
+
+export const SELECT_GAME_LINEUPS = 'SELECT_GAME_LINEUPS'
+export const SELECT_GAME_LINEUPS_SUCCESS = 'SELECT_GAME_LINEUPS_SUCCESS'
+export const SELECT_GAME_LINEUPS_FAIL = 'SELECT_GAME_LINEUPS_FAIL'
+
+export const FETCH_STANDINGS = 'news/fetch_standings'
+export const FETCH_STANDINGS_SUCCESS = 'news/fetch_standings_success'
+export const FETCH_STANDINGS_FAIL = 'news/fetch_standings_fail'
+
+export const FETCH_VIDEOS = 'news/fetch_videos'
+export const FETCH_VIDEOS_SUCCESS = 'news/fetch_videos_success'
+export const FETCH_VIDEOS_FAIL = 'news/fetch_videos_fail'
+
+export const SHOW_MODAL = 'SHOW_MODAL'
+export const CLOSE_MODAL = 'CLOSE_MODAL'
+
+export const UPDATE_PERMISSIONS = 'UPDATE_PERMISSIONS'
+
+export const FETCH_GAMES = 'FETCH_GAMES'
+export const FETCH_GAMES_SUCCESS = 'FETCH_GAMES_SUCCESS'
+export const FETCH_GAMES_FAIL = 'FETCH_GAMES_FAIL'
+
+export const FETCH_VENUES = 'FETCH_VENUES'
+export const FETCH_VENUES_SUCCESS = 'FETCH_VENUES_SUCCESS'
+export const FETCH_VENUES_FAIL = 'FETCH_VENUES_FAIL'
+
+export const FETCH_TEAM_TOP_STATISTICS = 'FETCH_TEAM_TOP_STATISTICS'
+export const FETCH_TEAM_TOP_STATISTICS_SUCCESS = 'FETCH_TEAM_TOP_STATISTICS_SUCCESS'
+export const FETCH_TEAM_TOP_STATISTICS_FAIL = 'FETCH_TEAM_TOP_STATISTICS_FAIL'
+
+export const FETCH_TEAM_GOALIES = 'FETCH_TEAM_GOALIES'
+export const FETCH_TEAM_GOALIES_SUCCESS = 'FETCH_TEAM_GOALIES_SUCCESS'
+export const FETCH_TEAM_GOALIES_FAIL = 'FETCH_TEAM_GOALIES_FAIL'
+
+export const FETCH_TEAM_SQUAD = 'FETCH_TEAM_SQUAD'
+export const FETCH_TEAM_SQUAD_SUCCESS = 'FETCH_TEAM_SQUAD_SUCCESS'
+export const FETCH_TEAM_SQUAD_FAIL = 'FETCH_TEAM_SQUAD_FAIL'
+
+export const FETCH_LEAGUE_SQUAD_STATS = 'FETCH_LEAGUE_SQUAD_STATS'
+export const FETCH_LEAGUE_SQUAD_STATS_SUCCESS = 'FETCH_LEAGUE_SQUAD_STATS_SUCCESS'
+export const FETCH_LEAGUE_SQUAD_STATS_FAIL = 'FETCH_LEAGUE_SQUAD_STATS_FAIL'
+
+export const SWISH_PAYMENT_INIT = 'SWISH_PAYMENT_INIT'
+export const SWISH_PAYMENT_INIT_SUCCESS = 'SWISH_PAYMENT_INIT_SUCCESS'
+export const SWISH_PAYMENT_INIT_FAIL = 'SWISH_PAYMENT_INIT_FAIL'
+export const SWISH_PAYMENT_CANCEL = 'SWISH_PAYMENT_CANCEL'
+export const SWISH_PAYMENT_COMPLETE = 'SWISH_PAYMENT_COMPLETE'
+
+export const FETCH_SELFIE_FILTERS = 'FETCH_SELFIE_FILTERS'
+export const FETCH_SELFIE_FILTERS_SUCCESS = 'FETCH_SELFIE_FILTERS_SUCCESS'
+export const FETCH_SELFIE_FILTERS_FAIL = 'FETCH_SELFIE_FILTERS_FAIL'
+
+export const ADD_PUSH_NOTIFICATION_TOPIC = 'ADD_PUSH_NOTIFICATION_TOPIC'
+export const REMOVE_PUSH_NOTIFICATION_TOPIC = 'REMOVE_PUSH_NOTIFICATION_TOPIC'
+
+// settings
+export const SET_LOCALE = 'SET_LOCALE'
+
+// DEV ACTIONS
+export const RESET_USER_STATE = 'RESET_USER_STATE'
+export const RESET_SELFIE_STATE = 'RESET_SELFIE_STATE'
+
+// Selected teams actions
+export const SET_TEAMS = 'SET_TEAMS'
+export const SELECT_TEAM = 'SELECT_TEAM'
+export const SHOW_SELECTION = 'SHOW_SELECTION'
+export const HIDE_SELECTION = 'HIDE_SELECTION'
+
+export const FETCH_STAGECAST = 'FETCH_STAGECAST'
+export const FETCH_STAGECAST_SUCCESS = 'FETCH_STAGECAST_SUCCESS'
+export const FETCH_STAGECAST_FAIL = 'FETCH_STAGECAST_FAIL'
