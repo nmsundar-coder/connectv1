@@ -1,4 +1,4 @@
-import {REGISTER, CLEAR_DATA, PRE_REGISTER, CALLBACK} from './types';
+import {REGISTER, CLEAR_DATA, CLEAR_ERROR, PRE_REGISTER, CALLBACK} from './types';
 import { Dispatch } from "redux";
 import axios from 'axios'
 
@@ -6,7 +6,7 @@ export function register(data: any, navigation?:any) {
   return (dispatch: Dispatch) => {
     data['phoneNo'] = data['countryCode'] + ' ' + data['phone'];
     if(data.fullName !== '' && data.email !== '' && data.country !== '') {
-      axios.post(`https://noderedheroku.herokuapp.com/v2/register`, data)
+      axios.post(`https://expleoconnect.azurewebsites.net/v2/register`, data)
         .then(res => {
           if(res.data && res.data.success === "true") {
             dispatch({
@@ -49,31 +49,77 @@ export function register(data: any, navigation?:any) {
 
 export function preRegister(data: any, navigation?:any) {
   return (dispatch: Dispatch) => {
-let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
     if(data.firstName !== '' && data.lastName !== '' && data.gender !== '' && data.emailId !== '' 
-    && data.countryCode !== '' && data.phone !== '' && data.country !== '' && data.companyName !== ''  && data.role !== '' ) {
-     
-      if(data.firstName.match("^[a-zA-Z ]*$") != null && data.lastName.match("^[a-zA-Z ]*$") != null && reg.test(data.emailId) !== false &&
-      data.phone.match("^[0-9 ]*$") != null && data.companyName.match("^[a-zA-Z ]*$") != null && data.role.match("^[a-zA-Z ]*$") != null){
-         dispatch({
-          type: PRE_REGISTER,
-          data: {
-            ...data,
-            success: true,
-            error: ''
-          },
-        });
-        navigation();
-      }else{
-        dispatch({
-          type: PRE_REGISTER,
-          data: {
-            error: "Please fill valid data",
-            token: ''
-          },
-        });
-      }     
-     
+        && data.countryCode !== '' && data.phone !== '' && data.country !== '' && data.companyName !== ''  && data.role !== '' ) {
+          let isValid = true;
+          if(data.firstName.match("^[a-zA-Z ]*$")==null){
+            isValid = false;
+            dispatch({
+              type: PRE_REGISTER,
+              data: {
+                error: "Please enter a valid first name",
+                token: ''
+              },
+            });
+          } else if(data.lastName.match("^[a-zA-Z ]*$")==null){
+            isValid = false;
+            dispatch({
+              type: PRE_REGISTER,
+              data: {
+                error: "Please enter a valid last name",
+                token: ''
+              },
+            });
+          } else if(!reg.test(data.emailId)) {
+            isValid = false;
+            dispatch({
+              type: PRE_REGISTER,
+              data: {
+                error: "Please enter a valid email address",
+                token: ''
+              },
+            });
+          } else if(data.phone.match("^[0-9 ]*$") == null) {
+            isValid = false;
+            dispatch({
+              type: PRE_REGISTER,
+              data: {
+                error: "Please enter a valid phone number",
+                token: ''
+              },
+            });
+          } else if(data.companyName.match("^[a-zA-Z ]*$") == null) {
+            isValid = false;
+            dispatch({
+              type: PRE_REGISTER,
+              data: {
+                error: "Please enter a valid company name",
+                token: ''
+              },
+            });
+          } else if(data.role.match("^[a-zA-Z0-9 ]*$") == null) {
+            isValid = false;
+            dispatch({
+              type: PRE_REGISTER,
+              data: {
+                error: "Please enter a valid role name",
+                token: ''
+              },
+            });
+          }
+
+          if(isValid){
+            dispatch({
+              type: PRE_REGISTER,
+              data: {
+                ...data,
+                success: true,
+                error: ''
+              },
+            });
+            navigation();
+          }
     } else {
       dispatch({
         type: PRE_REGISTER,
@@ -95,14 +141,25 @@ export function clearData(){
   }
 }
 
+export function clearError(){
+  return (dispatch:Dispatch) => {
+    dispatch({
+      type: CLEAR_ERROR,
+      data: {},
+    });
+  }
+}
+
 export function registerCallBack(data: any, authData:any, navigation?:any, isComplete?:any) {
   return (dispatch: Dispatch) => {
-    console.log(122);
     data['userId'] = authData['emailId'];
     if(data.message !== '' && data.serviceType !== '') {
-      axios.post(`https://noderedheroku.herokuapp.com/v1/requestCallback`, data)
+      axios.post(`https://expleoconnect.azurewebsites.net/v1/requestCallback`, data, {
+        headers: {
+          Authorization: 'Bearer '+ authData.token
+        }
+      })
       .then(res => {
-        console.log(133, res.data);
         if(res.data && res.data.success) {
           dispatch({
             type: CALLBACK,

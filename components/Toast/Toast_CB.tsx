@@ -91,18 +91,28 @@ class Toast extends React.Component<MyProps,MyState> {
             return (
                 <KeyboardAwareScrollView>
                     <View style={{height: Dimensions.get('window').height, backgroundColor: 'white'}}>
-                        <View style={{marginTop: 100, marginLeft: 'auto', marginRight: 'auto', marginBottom: 50}}>
+                        <View style={{marginTop: 100, marginLeft: 'auto', marginRight: 'auto', marginBottom: 25}}>
                             <Icon name="check-circle" size={150} color="#4bccb9"></Icon>
                         </View>
-                        <Text style={{fontSize:26, color: '4bccb9', marginLeft: 'auto', marginRight: 'auto'}}>Your request has been registered!</Text>
-                        <Text style={{fontSize:18, color: 'black', marginLeft: 20, marginBottom: 30, marginTop: 15}}>Appropriate person will get in touch with you within 48 hrs</Text>
-                       
-                        <Animated.View style={[commonStyles.button1]}>
-                            <TouchableOpacity style={{borderRadius: 5, backgroundColor: '#6846C6'}} onPress={() => {
-                                this.navigation.navigate('Home', { name: 'Jane' });
+                        <View style={{alignSelf: 'center'}}>
+                          <Text style={{fontSize:26, color: '4bccb9', marginHorizontal: 20}}>Request registered!</Text>
+                        </View>
+                        <Text style={{fontSize:18, color: 'black', marginHorizontal: 20, marginBottom: 30, marginTop: 15}}>Appropriate person will get in touch with you within 24 hrs</Text>
+
+                        <Animated.View style={[commonStyles.button1,{backgroundColor: '#6846C6'}]}>
+                          <TouchableOpacity style={[{borderRadius: 5, width: 350},commonStyles.button1]} onPress={() => {
+                              this.navigation.navigate('MyRequests', { name: 'Jane' });
                             }}>
-                                <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: 15, marginBottom: 15, marginLeft: 20, marginRight: 20, color: 'white'}}>Go Back</Text>
-                            </TouchableOpacity>
+                              <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: 15, marginBottom: 15, marginLeft: 20, marginRight: 20, color: 'white'}}>Go My Requests</Text>
+                          </TouchableOpacity>
+                        </Animated.View>
+
+                        <Animated.View style={[commonStyles.button1,{backgroundColor: '#6846C6'}]}>
+                          <TouchableOpacity style={[{borderRadius: 5, width: 350},commonStyles.button1]} onPress={() => {
+                              this.navigation.navigate('Home', { name: 'Jane' });
+                            }}>
+                              <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: 15, marginBottom: 15, marginLeft: 20, marginRight: 20, color: 'white'}}>Go Back</Text>
+                          </TouchableOpacity>
                         </Animated.View>
                         <View style={{flex: 1, justifyContent: 'flex-end', marginLeft: 'auto', marginRight: 'auto'}}>
                             <Image

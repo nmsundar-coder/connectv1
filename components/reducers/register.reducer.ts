@@ -3,7 +3,8 @@ import {
   CLEAR_DATA,
   REGISTER,
   PRE_REGISTER,
-  CALLBACK
+  CALLBACK,
+  CLEAR_ERROR
 } from '../actions/types'
   
   export type INITIAL_STATE = {
@@ -32,8 +33,20 @@ import {
             ...action.data
         }
       }
+      case CALLBACK: {
+        return {
+            ...state,
+            ...action.data
+        }
+      }
       case CLEAR_DATA: {
         return {
+        }
+      }
+      case CLEAR_ERROR: {
+        return {
+          ...state,
+          error: ''
         }
       }
       default:

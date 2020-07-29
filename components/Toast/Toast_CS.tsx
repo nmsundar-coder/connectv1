@@ -96,13 +96,12 @@ class Toast extends React.Component<MyProps,MyState> {
                         </View>
                         <Text style={{fontSize:26, color: '4bccb9', marginLeft: 'auto', marginRight: 'auto'}}>This feature is coming soon!</Text>
                         <Text style={{fontSize:18, color: 'black', marginLeft: 20, marginBottom: 30, marginTop: 15}}></Text>
-                       
-                        <Animated.View style={[commonStyles.button1]}>
-                            <TouchableOpacity style={{borderRadius: 5, backgroundColor: '#6846C6'}} onPress={() => {
-                                this.navigation.navigate('Home', { name: 'Jane' });
+                        <Animated.View style={[commonStyles.button1,{backgroundColor: '#6846C6'}]}>
+                          <TouchableOpacity style={[{borderRadius: 5, width: 350},commonStyles.button1]} onPress={() => {
+                              this.navigation.navigate('Home', { name: 'Jane' });
                             }}>
-                                <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: 15, marginBottom: 15, marginLeft: 20, marginRight: 20, color: 'white'}}>Go Back</Text>
-                            </TouchableOpacity>
+                              <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: 15, marginBottom: 15, marginLeft: 20, marginRight: 20, color: 'white'}}>Go Back</Text>
+                          </TouchableOpacity>
                         </Animated.View>
                         <View style={{flex: 1, justifyContent: 'flex-end', marginLeft: 'auto', marginRight: 'auto'}}>
                             <Image

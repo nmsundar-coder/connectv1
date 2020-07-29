@@ -20,8 +20,6 @@ type MyProps = {
 type MyState = {
     isReady: boolean,
     textOpacity: any,
-    userName: string,
-    password: string,
     keepLoggedIn: boolean,
     isComplete: boolean
 }
@@ -50,103 +48,7 @@ class Login extends React.Component<MyProps,MyState> {
             keepLoggedIn: false,
             isComplete: true,
             textOpacity: new Value(1),
-            userName: '',
-            password: '',
         }
-        this.handleUserNameChange = this.handleUserNameChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.buttonOpacity = new Value(1);
-        this.onStateChange = event([
-            {
-                nativeEvent: ({ state }:any) =>
-                block([
-                    cond(
-                    eq(state, State.END),
-                    set(this.buttonOpacity, runTiming(new Clock(), 1, 0))
-                    )
-                ])
-            }
-        ]);
-
-        this.onCloseState =  event([
-            {
-                nativeEvent: ({ state }:any) =>
-                block([
-                    cond(
-                    eq(state, State.END),
-                    set(this.buttonOpacity, runTiming(new Clock(), 0, 1))
-                    )
-                ])
-            }
-        ]);
-
-        this.buttonY = interpolate(this.buttonOpacity, {
-        inputRange: [0, 1],
-        outputRange: [100, 0],
-        extrapolate: Extrapolate.CLAMP
-        });
-    
-        this.bgY = interpolate(this.buttonOpacity, {
-        inputRange: [0, 1],
-        outputRange: [-height / 3 - 50, 0],
-        extrapolate: Extrapolate.CLAMP
-        });
-
-        this.textInputZindex = interpolate(this.buttonOpacity, {
-        inputRange: [0, 1],
-        outputRange: [1,-1],
-        extrapolate: Extrapolate.CLAMP
-        });
-
-        this.textInputY = interpolate(this.buttonOpacity, {
-        inputRange: [0, 1],
-        outputRange: [0,100],
-        extrapolate: Extrapolate.CLAMP
-        });
- 
-        this.textInputOpacity = interpolate(this.buttonOpacity, {
-        inputRange: [0, 1],
-        outputRange: [1,0],
-        extrapolate: Extrapolate.CLAMP
-        });
-
-        this.rotateCross = interpolate(this.buttonOpacity, {
-        inputRange: [0, 1],
-        outputRange: [180,360],
-        extrapolate: Extrapolate.CLAMP
-        });
-    }
-
-    componentDidUpdate() {
-    }
-
-    componentDidMount () {
-        //this.props.clearData();
-        console.log(1, this.props.authData);
-        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
-        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
-    }
-
-    componentWillUnmount () {
-        this.keyboardDidShowListener.remove();
-        this.keyboardDidHideListener.remove();
-    }
-
-    _keyboardDidShow = () => {
-        this.setState({textOpacity: new Value(0)});
-    }
-    _keyboardDidHide = () =>  {
-        this.setState({textOpacity: new Value(1)});
-    }
-
-    handleUserNameChange(event:any) {
-        let processedData = event.nativeEvent.text;
-        this.setState({userName: processedData});
-    }
-
-    handlePasswordChange(event:any) {
-        let processedData = event.nativeEvent.text;
-        this.setState({password: processedData});
     }
 
     render() {
@@ -157,33 +59,9 @@ class Login extends React.Component<MyProps,MyState> {
                 }
             }
         }
-
-        const tOp = this.textOpacity;
-        const animateYaxis: any = {
-            transform: [
-                { translateY: this.buttonY }
-            ]
-          }
-
-        const animateBgYaxis: any = {
-            transform: [
-                { translateY: this.bgY}
-            ]
-        }
-
-        const animateTextInputY: any = {
-            transform: [
-                { translateY: this.textInputY}
-            ]
-        }
-
-        const animateCross: any = {
-            transform: [{rotate: concat(this.rotateCross, 'deg')}]
-        }
-
         return (
             <View style={{flex: 1, justifyContent: 'flex-end', backgroundColor: 'white'}}>
-                <Animated.View style={[commonStyles.container, animateBgYaxis]}>
+                <Animated.View style={[commonStyles.container]}>
                     <Svg height={height+50} width={width}>
                         {/* <ClipPath id='clip'>
                             <Circle r={height+40} cx={width/2}></Circle>
@@ -206,122 +84,36 @@ class Login extends React.Component<MyProps,MyState> {
                             onPress={Keyboard.dismiss}
                         />
                     </Svg>
-                    <Animated.View style={{opacity: this.state.textOpacity}}>
-                        <Text style={{fontSize: 18, color: 'white', margin: 20, textAlign: 'justify'}}>
-                            Expleo is an engineering, quality services and management consulting company. The company is active in a variety of industries, including banking and financial services, insurance, automotive and manufacturing, retail and logistics, telecommunications, energy and utilities and public services. 
+                    <Animated.View>
+                        <Text style={{fontSize: 18, color: 'white', marginHorizontal: 10, textAlign: 'justify'}}>
+                        Expleo is a trusted partner for end-to-end, integrated engineering, quality services and management consulting for digital transformation. We help businesses harness unrelenting technological change to successfully deliver innovations that will help them gain a competitive advantage and improve the everyday lives of people around the globe. We operate in over 30 countries.
                         </Text>        
                     </Animated.View>       
                 </Animated.View>
                 <View style={{height:'10%', flexDirection: 'row', marginHorizontal: 20}}>
-                    <TapGestureHandler onHandlerStateChange={this.onStateChange}>
-                        <Animated.View style={[styles.signinBtn,{ opacity: this.buttonOpacity}, animateYaxis]}>
+                    <Animated.View>
+                        <TouchableOpacity style={[styles.signinBtn]}
+                        onPress={() => this.navigation.navigate('Signin', { name: 'Jane' })}>
                             <Text style={{fontSize: 16, fontWeight: 'bold', color: 'white'}}>SIGN IN</Text>
-                        </Animated.View>
-                    </  TapGestureHandler>
-                    <Animated.View style={[styles.registerBtn,{ opacity: this.buttonOpacity, backgroundColor: '#6846C6'}, animateYaxis]}>
+                        </TouchableOpacity>
+                    </Animated.View>
+                    <Animated.View style={[styles.registerBtn,{backgroundColor: '#6846C6'}]}>
                         <TouchableOpacity style={[commonStyles.button, {backgroundColor: 'transparent'}]} onPress={() => this.navigation.navigate('Registration', { name: 'Jane' })}>
                             <Text style={{fontSize: 16, fontWeight: 'bold', color: 'white'}}>REGISTER</Text>
                         </TouchableOpacity>
                     </Animated.View>
                 </View>
-                <Animated.View style={[{height:'10%',justifyContent: 'center',alignItems: 'center'},{ opacity: this.buttonOpacity}, animateYaxis]}>
+                <Animated.View style={[{height:'10%',justifyContent: 'center',alignItems: 'center'}]}>
                     <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold'}}>Or</Text>
                 </Animated.View>
-                <Animated.View style={[{justifyContent: 'center',alignItems: 'center', height: 50, marginBottom: '10%', opacity: this.buttonOpacity}, animateYaxis]}>
+                <Animated.View style={[{justifyContent: 'center',alignItems: 'center', height: 50, marginBottom: '10%'}]}>
                     <TouchableOpacity style={{borderRadius: 5, backgroundColor: 'transparent', borderWidth: 1, borderColor: 'white',}} onPress={() => Linking.openURL('https://expleogroup.com/about-us/')}>
                         <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: 15, marginBottom: 15, marginLeft: 20, marginRight: 20, color: 'white'}}>Discover Expleo</Text>
                     </TouchableOpacity>
                 </Animated.View>    
-                <Animated.View style={[{height: height/3+10}, commonStyles.container, {zIndex: this.textInputZindex, opacity: this.textInputOpacity, top: undefined, justifyContent: 'center', backgroundColor: 'white'}, animateTextInputY]}>
-                    <TapGestureHandler onHandlerStateChange={this.onCloseState}>
-                        <Animated.View style={[styles.closeButton]}>
-                            <Animated.Text style={[{fontSize: 15}, animateCross]}>X</Animated.Text>
-                        </Animated.View>
-                    </TapGestureHandler>
-                    <TextInput
-                        placeholder="Email"
-                        style={[commonStyles.textInput, {marginTop: 25}]}
-                        placeholderTextColor="black"
-                        value={this.state.userName}
-                        onChange={this.handleUserNameChange}
-                    >
-                        
-                    </TextInput>
-                    <TextInput
-                        placeholder="Password"
-                        secureTextEntry={true}
-                        style={commonStyles.textInput}
-                        placeholderTextColor="black"
-                        value={this.state.password}
-                        onChange={this.handlePasswordChange}
-                    >
-                    </TextInput>
-                    <View>
-                        <CheckBox
-                            title='Keep me logged in'
-                            checked={this.state.keepLoggedIn}
-                            containerStyle={styles.checkboxContainer1}
-                            textStyle={{color: 'black', fontSize: 14}}
-                            onPress={()=>{
-                                let value = this.state.keepLoggedIn;
-                                this.setState({
-                                    keepLoggedIn: !value
-                                })
-                            }}
-                        />
-                    </View>
-                    {this.props.authData.error?(
-                    <View style={{marginLeft: 'auto', marginRight: 'auto'}}>
-                        <Text style={{color: 'red', fontSize: 14, fontWeight: 'bold'}}>{this.props.authData.error}</Text>
-                    </View>):undefined}
-                    <Animated.View style={[commonStyles.button1,{backgroundColor: '#6846C6', height: 40}]}>
-                    {this.state.isComplete?(
-                        <TouchableOpacity style={[{borderRadius: 5, width: 350},commonStyles.button1,{height: 40}]} onPress={() => {
-                            this.setState({isComplete: false});
-                            this.props.login(this.state.userName, this.state.password, this.state.keepLoggedIn,()=>{
-                                this.navigation.navigate('Home', { name: 'Jane' })
-                            }, ()=> {
-                                this.setState({isComplete: true})
-                            });
-                        }}>
-                            <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: 15, marginBottom: 15, marginLeft: 20, marginRight: 20, color: 'white'}}>SIGN IN</Text>
-                        </TouchableOpacity>)
-                        :(<ActivityIndicator size="small" color="#00ff00"></ActivityIndicator>)
-                    }
-                    </Animated.View>
-                </Animated.View>
             </View>
         )
     }
-}
-
-function runTiming(clock:any, value:any, dest:any) {
-    const state = {
-      finished: new Value(0),
-      position: new Value(0),
-      time: new Value(0),
-      frameTime: new Value(0)
-    };
-  
-    const config = {
-      duration: 500,
-      toValue: new Value(0),
-      easing: Easing.inOut(Easing.ease)
-    };
-  
-    return block([
-      cond(clockRunning(clock), 0, [
-        set(state.finished, 0),
-        set(state.time, 0),
-        set(state.position, value),
-        set(state.frameTime, 0),
-        set(config.toValue, dest),
-        startClock(clock)
-      ]),
-      timing(clock, state, config),
-      cond(state.finished, debug('stop clock', stopClock(clock))),
-      state.position
-    ]);
 }
 
 const mapStateToProps = (state: any) => ({

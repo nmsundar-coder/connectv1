@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text,Picker, View, StyleSheet, Dimensions, Image, Alert} from 'react-native'
 import Animated, { color } from 'react-native-reanimated'
-import {TouchableOpacity} from 'react-native-gesture-handler'
+import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import {TextInput, } from 'react-native-paper'
 import styles from './styles'
@@ -139,7 +139,7 @@ class Stepper extends React.Component<MyProps,MyState> {
             return <Picker.Item key={data.code} label={'(+'+ data.callingCode+') '+data.name} value={data.callingCode} />
         });
         const termsAndCondition = (
-            <View style={{height: height}}>
+            <View style={{height: height+80}}>
                 <Image
                     source={require('../../assets/bg.png')}
                     width={width}
@@ -170,17 +170,12 @@ class Stepper extends React.Component<MyProps,MyState> {
                     </TouchableOpacity>
                     <Text style={[styles.box, {backgroundColor: '#fff', color: '#000'}]}>Terms</Text>
                 </View>
-                <View>
-                    <TextInput
-                        mode="flat"
-                        label="Terms and Conditions"
-                        placeholder=""
-                        style={styles.terms}
-                        value={terms}
-                        placeholderTextColor="#d4d4d4"
-                        editable={false}
-                        multiline
-                    />
+                <View style={{marginHorizontal: 20, backgroundColor: 'white', borderRadius: 5, maxHeight: 500, overflow: 'hidden'}}>
+                    <ScrollView style={{margin: 5}}>
+                        <Text>
+                            {terms}
+                        </Text>
+                    </ScrollView>
                 </View>
                 <View>
                     <CheckBox
@@ -216,7 +211,7 @@ class Stepper extends React.Component<MyProps,MyState> {
             </View>
         );  
         const regForm = (
-            <View style={{height: height}}>
+            <View style={{height: height+80}}>
                     <Image
                         source={require('../../assets/bg.png')}
                         width={width}
@@ -246,6 +241,7 @@ class Stepper extends React.Component<MyProps,MyState> {
                             <Text style={styles.box}>Interests</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={{height: '100%'}} onPress={() => {
+                            this.setState({step: 3});
                         }}>
                             <Text style={styles.box}>Terms</Text>
                             </TouchableOpacity>
@@ -272,17 +268,19 @@ class Stepper extends React.Component<MyProps,MyState> {
                             value={this.state.lastName}
                             />
                     </View>
-                    <View style={[{backgroundColor: 'white', marginLeft: 20, marginRight: 20, borderRadius: 5, marginVertical: 5, height: 52},(this.props.registration.error!=='' && this.props.registration.error!==undefined)?((this.state.gender!==undefined && this.state.gender!=='')?{}:{borderWidth:1, borderColor: 'red'}):{}]}>
-                        <Picker
-                            selectedValue={this.state.gender}
-                            onValueChange={(itemValue, itemIndex) => this.setGender(itemValue)}>
-                            <Picker.Item label="Select a Gender" value="" />
-                            <Picker.Item label="Male" value="Male" />
-                            <Picker.Item label="Female" value="Female" />
-                            <Picker.Item label="Prefer not to disclose" value="other" />
-                        </Picker>
+                    <View style={[{flex: 1, marginLeft: 20, marginRight: 20}]}>
+                        <View style={[{backgroundColor: 'white', borderRadius: 5},(this.props.registration.error!=='' && this.props.registration.error!==undefined)?((this.state.gender!==undefined && this.state.gender!=='')?{}:{borderWidth:1, borderColor: 'red'}):{}]}>
+                            <Picker
+                                selectedValue={this.state.gender}
+                                onValueChange={(itemValue, itemIndex) => this.setGender(itemValue)}>
+                                <Picker.Item label="Select a Gender" value="" />
+                                <Picker.Item label="Male" value="Male" />
+                                <Picker.Item label="Female" value="Female" />
+                                <Picker.Item label="Prefer not to disclose" value="other" />
+                            </Picker>
+                        </View>
                     </View>
-                    <View>
+                    <View style={{flex:1}}>
                     <TextInput
                         mode="flat"
                         label="Email ID"
@@ -291,6 +289,7 @@ class Stepper extends React.Component<MyProps,MyState> {
                         placeholderTextColor="#d4d4d4"
                         onChange={this.handleOnChange.bind(this, 'emailId')}
                         value={this.state.emailId}
+                        keyboardType="email-address"
                         />
                     </View>
                     <View style={{flex:1, flexDirection: 'row'}}>
@@ -312,6 +311,7 @@ class Stepper extends React.Component<MyProps,MyState> {
                             placeholder="Enter Your Phone"
                             style={[styles.textInput, {marginLeft: 5, width: '52%'}, (this.props.registration.error!=='' && this.props.registration.error!==undefined)?((this.state.phone!==undefined && this.state.phone!=='')?{}:{borderWidth:1, borderColor: 'red'}):{}]}
                             placeholderTextColor="#d4d4d4"
+                            keyboardType="numeric"
                             onChange={this.handleOnChange.bind(this, 'phone')}
                             value={this.state.phone}
                             />
@@ -374,7 +374,7 @@ class Stepper extends React.Component<MyProps,MyState> {
                 </View>
             );
             const interests = (
-                <View style={{height: height}}>
+                <View style={{height: height+80}}>
                     <Image
                         source={require('../../assets/bg.png')}
                         width={width}
@@ -405,18 +405,18 @@ class Stepper extends React.Component<MyProps,MyState> {
                         </TouchableOpacity>
                     </View>
                     <View>
-                        <Text style={{fontSize:18, color: 'white', marginLeft: 20, marginVertical: 5}}>Choose what you are interested in</Text>
+                        <Text style={{fontSize:18, color: 'white', marginLeft: 10, marginVertical: 5}}>Choose what you are interested in</Text>
                         <CheckBox
-                            title='QMC'
-                            checked={this.state.interests['qmc']}
+                            title='Management'
+                            checked={this.state.interests['management']}
                             containerStyle={styles.checkboxContainer}
-                            textStyle={{color: 'white'}}
+                            textStyle={{color: 'black', fontSize: 16}}
                             onPress={()=>{
-                                let value = this.state.interests['qmc']?this.state.interests['qmc']:false;
+                                let value = this.state.interests['management']?this.state.interests['management']:false;
                                 this.setState({
                                     interests: {
                                         ...this.state.interests,
-                                        qmc: !value
+                                        management: !value
                                     }
                                 })
                             }}
@@ -425,7 +425,7 @@ class Stepper extends React.Component<MyProps,MyState> {
                             title='Engineering'
                             checked={this.state.interests['engineering']}
                             containerStyle={styles.checkboxContainer}
-                            textStyle={{color: 'white'}}
+                            textStyle={{color: 'black', fontSize: 16}}
                             onPress={()=>{
                                 let value = this.state.interests['engineering']?this.state.interests['engineering']:false;
                                 this.setState({
@@ -440,7 +440,7 @@ class Stepper extends React.Component<MyProps,MyState> {
                             title='Management consulting'
                             checked={this.state.interests['management']}
                             containerStyle={styles.checkboxContainer}
-                            textStyle={{color: 'white'}}
+                            textStyle={{color: 'black', fontSize: 16}}
                             onPress={()=>{
                                 let value = this.state.interests['management']?this.state.interests['management']:false;
                                 this.setState({
@@ -455,7 +455,7 @@ class Stepper extends React.Component<MyProps,MyState> {
                             title='Space and Defense'
                             checked={this.state.interests['spacedefense']}
                             containerStyle={styles.checkboxContainer}
-                            textStyle={{color: 'white'}}
+                            textStyle={{color: 'black', fontSize: 16}}
                             onPress={()=>{
                                 let value = this.state.interests['spacedefense']?this.state.interests['spacedefense']:false;
                                 this.setState({
@@ -470,7 +470,7 @@ class Stepper extends React.Component<MyProps,MyState> {
                             title='Blockchain'
                             checked={this.state.interests['blockchain']}
                             containerStyle={styles.checkboxContainer}
-                            textStyle={{color: 'white'}}
+                            textStyle={{color: 'black', fontSize: 16}}
                             onPress={()=>{
                                 let value = this.state.interests['blockchain']?this.state.interests['blockchain']:false;
                                 this.setState({
@@ -485,7 +485,7 @@ class Stepper extends React.Component<MyProps,MyState> {
                             title='Testing'
                             checked={this.state.interests['testing']}
                             containerStyle={styles.checkboxContainer}
-                            textStyle={{color: 'white'}}
+                            textStyle={{color: 'black', fontSize: 16}}
                             onPress={()=>{
                                 let value = this.state.interests['testing']?this.state.interests['testing']:false;
                                 this.setState({
@@ -500,7 +500,7 @@ class Stepper extends React.Component<MyProps,MyState> {
                             title='AI and Machine Learning'
                             checked={this.state.interests['aiml']}
                             containerStyle={styles.checkboxContainer}
-                            textStyle={{color: 'white'}}
+                            textStyle={{color: 'black', fontSize: 16}}
                             onPress={()=>{
                                 let value = this.state.interests['aiml']?this.state.interests['aiml']:false;
                                 this.setState({
@@ -515,7 +515,7 @@ class Stepper extends React.Component<MyProps,MyState> {
                             title='Banking and Financial'
                             checked={this.state.interests['bankingfinance']}
                             containerStyle={styles.checkboxContainer}
-                            textStyle={{color: 'white'}}
+                            textStyle={{color: 'black', fontSize: 16}}
                             onPress={()=>{
                                 let value = this.state.interests['bankingfinance']?this.state.interests['bankingfinance']:false;
                                 this.setState({
@@ -530,7 +530,7 @@ class Stepper extends React.Component<MyProps,MyState> {
                             title='Insurance'
                             checked={this.state.interests['insurance']}
                             containerStyle={styles.checkboxContainer}
-                            textStyle={{color: 'white'}}
+                            textStyle={{color: 'black', fontSize: 16}}
                             onPress={()=>{
                                 let value = this.state.interests['insurance']?this.state.interests['insurance']:false;
                                 this.setState({
@@ -545,7 +545,7 @@ class Stepper extends React.Component<MyProps,MyState> {
                             title='Telecoms and Media'
                             checked={this.state.interests['telemedia']}
                             containerStyle={styles.checkboxContainer}
-                            textStyle={{color: 'white'}}
+                            textStyle={{color: 'black', fontSize: 16}}
                             onPress={()=>{
                                 let value = this.state.interests['telemedia']?this.state.interests['telemedia']:false;
                                 this.setState({

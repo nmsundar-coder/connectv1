@@ -14,7 +14,8 @@ type MyProps = {
 type MyState = {
     isReady: boolean,
     textOpacity: any,
-    selectedCountry: any
+    selectedCountry: any,
+    settings: any
 }
 const {width,height} = Dimensions.get('window');
 class LeftMenu extends React.Component<MyProps,MyState> {
@@ -26,7 +27,8 @@ class LeftMenu extends React.Component<MyProps,MyState> {
         this.state = {
             isReady: false,
             textOpacity: new Value(1),
-            selectedCountry: ''
+            selectedCountry: '',
+            settings: false
         }
     }
 
@@ -86,11 +88,15 @@ class LeftMenu extends React.Component<MyProps,MyState> {
                         <Text style={styles.profileText}>Welcome, <Text style={{fontWeight: 'bold'}}>{this.props.authData.firstName} {this.props.authData.lastName} {this.props.authData.isApproved==='Y'?(<Icon name="check-circle" size={22} color="#66e066"></Icon>):(<Icon name="exclamation-triangle" size={22} color="#e6d800"></Icon>)}</Text></Text>
                     </View>
                     <View style={{margin: 20}}>
-                        <Icon name="database" size={22} color="#fff">
-                            <Text style={styles.profileText}>  My Requests</Text>
-                        </Icon>
+                        <TouchableOpacity onPress={() => {
+                                    this.navigation.navigate('MyRequests')
+                                }}>
+                            <Icon name="database" size={22} color="#fff">
+                                <Text style={styles.profileText}>  My Requests</Text>
+                            </Icon>
+                        </TouchableOpacity>
                     </View>
-                    <View style={{margin: 20}}>
+                    {/* <View style={{margin: 20}}>
                         <Icon name="user-circle" size={22} color="#fff">
                             <Text style={styles.profileText}>  My Profile</Text>
                         </Icon>
@@ -99,12 +105,26 @@ class LeftMenu extends React.Component<MyProps,MyState> {
                         <Icon name="newspaper-o" size={22} color="#fff">
                             <Text style={styles.profileText}>  News</Text>
                         </Icon>
-                    </View>
+                    </View> */}
                     <View style={{margin: 20}}>
-                        <Icon name="cogs" size={22} color="#fff">
-                            <Text style={styles.profileText}>  Settings</Text>
-                        </Icon>
+                        <TouchableOpacity onPress={() => {
+                                let settings = this.state.settings;
+                                this.setState({settings: !settings});
+                            }}>
+                            <Icon name="cogs" size={22} color="#fff">
+                                <Text style={styles.profileText}>  Settings</Text>
+                            </Icon>
+                        </TouchableOpacity>
                     </View>
+                    {this.state.settings?(<View style={{marginVertical: 10, marginLeft: 60}}>
+                        <TouchableOpacity onPress={() => {
+                                    this.navigation.navigate('Interests')
+                                }}>
+                            <Icon name="newspaper-o" size={22} color="#fff">
+                                <Text style={styles.profileText}>  Interests</Text>
+                            </Icon>
+                        </TouchableOpacity>
+                    </View>):(undefined)}
                     <View style={{margin: 20}}>
                     <TouchableOpacity onPress={() => {
                             this.props.clearData();

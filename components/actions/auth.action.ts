@@ -7,7 +7,7 @@ let jwtDecode = require('jwt-decode');
 export function login(userName?: string, password?: string, keepLoggedIn?:string, navigation?:any, isComplete?:any) {
   return (dispatch: Dispatch) => {
     if(userName!=='' && password!=='') {
-      axios.post(`https://noderedheroku.herokuapp.com/v1/authenticate`, { username: userName, password })
+      axios.post(`https://expleoconnect.azurewebsites.net/v1/authenticate`, { username: userName, password })
         .then(res => {
           if(res.data && res.data.token) {
             let token = res.data.token;

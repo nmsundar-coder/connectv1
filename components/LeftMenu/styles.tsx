@@ -20,6 +20,21 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: 'white',
         margin: 20
+    },
+    checkboxContainer: {
+        backgroundColor: 'white',
+        color: 'black',
+        borderColor: 'transparent',
+        marginVertical: 5,
+        padding: 10,
+        marginHorizontal: 20,
+        borderRadius: 5
+    },
+    checkboxContainer1: {
+        backgroundColor: 'transparent',
+        color: 'white',
+        borderColor: 'transparent',
+        margin: 0,
     }
   });
 

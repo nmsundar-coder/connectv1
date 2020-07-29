@@ -4,7 +4,7 @@ import Animated, { Value } from 'react-native-reanimated'
 import {TouchableOpacity} from 'react-native-gesture-handler'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import commonStyles from '../Common/styles'
-import {clearData, registerCallBack} from '../actions/register.action'
+import {clearData, registerCallBack, clearError} from '../actions/register.action'
 import { connect } from 'react-redux';
 import {TextInput } from 'react-native-paper'
 import styles from '../Login/styles'
@@ -13,6 +13,8 @@ type MyProps = {
     navigation:any,
     authData: any,
     registerCallBack: (data?:any, authData?:any, navigation?:any, isComplete?:any) => void,
+    clearData: () => void,
+    clearError: () => void,
     registration: any
 }
 type MyState = {
@@ -34,6 +36,7 @@ class RequestCallBack extends React.Component<MyProps,MyState> {
             message: '',
             isComplete: true
         }
+        this.props.clearError();
     }
 
     setMessage(value:any) {
@@ -81,7 +84,8 @@ class RequestCallBack extends React.Component<MyProps,MyState> {
                         </View>  
                     </View>                  
                     <Text style={{fontSize:25, color: 'white', marginTop: 25, marginLeft: 'auto', marginRight: 'auto', marginBottom: 20}}>REQUEST A CALLBACK</Text>
-                    <View style={{backgroundColor: 'white', marginLeft: 20, marginRight: 20, marginTop: 5, borderRadius: 5}}>
+                    <View style={[{backgroundColor: 'white', marginLeft: 20, marginRight: 20, marginTop: 5, borderRadius: 5},
+                                    (this.props.registration.error!=='' && this.props.registration.error!==undefined)?((this.state.serviceType!==undefined && this.state.serviceType!=='')?{}:{borderWidth:1, borderColor: 'red'}):{}]}>
                         <Picker
                             selectedValue={this.state.serviceType}
                             onValueChange={(itemValue, itemIndex) => this.setMessage(itemValue)}>
@@ -108,10 +112,9 @@ class RequestCallBack extends React.Component<MyProps,MyState> {
                         onChange={this.handleOnChange.bind(this, 'message')}
                         />
                     </View>
-                    <Animated.View style={[commonStyles.button1,{backgroundColor: '#6846C6', height: 40}]}>
+                    <Animated.View style={[commonStyles.button1,{backgroundColor: '#6846C6', height: 50}]}>
                     {this.state.isComplete?(
                         <TouchableOpacity onPress={() => {
-                            console.log(111);
                             this.setState({isComplete: false});
                             this.props.registerCallBack(this.state, this.props.authData, ()=> {
                                 this.navigation.navigate('Toast_CB', { name: 'Jane' })
@@ -123,6 +126,10 @@ class RequestCallBack extends React.Component<MyProps,MyState> {
                         </TouchableOpacity>
                     ):(<ActivityIndicator size="small" color="#00ff00"></ActivityIndicator>)}
                     </Animated.View>
+                    {this.props.registration.error?(
+                    <View style={{marginLeft: 'auto', marginRight: 'auto'}}>
+                        <Text style={{color: 'red', fontSize: 14, fontWeight: 'bold'}}>{this.props.registration.error}</Text>
+                    </View>):undefined}
                 </View>
             </KeyboardAwareScrollView>
         )
@@ -137,7 +144,8 @@ function bindToAction(dispatch: any) {
     return {
         registerCallBack: (data?: any, authData?:any, navigation?:any, isComplete?:any) =>
             dispatch(registerCallBack(data, authData, navigation, isComplete)),
-        clearData: () => dispatch(clearData())
+        clearData: () => dispatch(clearData()),
+        clearError: () => dispatch(clearError()),
     };
 }
   

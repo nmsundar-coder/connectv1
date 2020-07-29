@@ -1,8 +1,11 @@
 export const LOGIN = 'LOGIN'
 export const CLEAR_DATA = 'CLEAR_DATA'
+export const CLEAR_ERROR = 'CLEAR_ERROR'
 export const REGISTER = 'REGISTER'
 export const PRE_REGISTER = 'PRE_REGISTER';
 export const CALLBACK = 'CALLBACK'
+export const MYREQUEST = 'MYREQUEST'
+export const MYINTEREST = 'MYINTEREST'
 
 export const FETCH_BOOKLETS = 'fetch_booklets'
 export const FETCH_BOOKLETS_SUCCESS = 'fetch_booklets_success'

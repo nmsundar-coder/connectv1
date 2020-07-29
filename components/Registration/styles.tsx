@@ -30,13 +30,13 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.8
     },
     checkboxContainer: {
-      backgroundColor: 'transparent',
-      color: 'white',
+      backgroundColor: 'white',
+      color: 'black',
       borderColor: 'transparent',
-      margin: 0,
-      marginLeft: 40,
-      padding: 5,
-      width: '70%'
+      marginVertical: 5,
+      padding: 10,
+      marginHorizontal: 20,
+      borderRadius: 5
     },
     checkboxContainer1: {
       backgroundColor: 'transparent',

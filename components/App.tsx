@@ -10,6 +10,10 @@ import Toast_CB from './Toast/Toast_CB'
 import LeftNav from './LeftMenu/LeftMenu'
 import RequestCallBack from './Home/RequestCallBack'
 import Toast_CS from './Toast/Toast_CS';
+import Toast_CI from './Toast/Toast_CI';
+import Signin from './Login/Signin';
+import MyRequests from './LeftMenu/MyRequests';
+import Interests from './LeftMenu/Interests';
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -18,7 +22,6 @@ export default function App() {
       <Stack.Navigator
         screenOptions={{
           gestureEnabled: true,
-          gestureDirection: "horizontal",
           ...TransitionPresets.FadeFromBottomAndroid
         }}>
         <Stack.Screen
@@ -26,6 +29,19 @@ export default function App() {
           component={Login}
           options={{headerShown: false}}
         />
+        <Stack.Screen
+          name="Signin"
+          component={Signin}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen 
+          name="MyRequests" 
+          component={MyRequests}
+          options={{headerShown: false}}/>
+        <Stack.Screen 
+          name="Interests" 
+          component={Interests}
+          options={{headerShown: false}}/>
         <Stack.Screen 
           name="Registration" 
           component={Stepper}
@@ -49,6 +65,10 @@ export default function App() {
         <Stack.Screen 
           name="Toast_CS" 
           component={Toast_CS}
+          options={{headerShown: false}}/>
+        <Stack.Screen 
+          name="Toast_CI" 
+          component={Toast_CI}
           options={{headerShown: false}}/>
         <Stack.Screen 
           name="LeftMenu" 
