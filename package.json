@@ -37,7 +37,7 @@
     "react-native-material-textfield": "^0.16.1",
     "react-native-orientation-locker": "^1.1.8",
     "react-native-paper": "^3.10.1",
-    "react-native-reanimated": "^1.8.0",
+    "react-native-reanimated": "^2.10.0",
     "react-native-safe-area-context": "^1.0.0",
     "react-native-screens": "^2.7.0",
     "react-native-sentry": "^0.43.2",
